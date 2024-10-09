@@ -11,6 +11,7 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RequestMapping("/document")
@@ -20,9 +21,10 @@ import java.util.List;
 public class DocumentController {
   private final VectorStore vectorStore;
   
-  @SneakyThrows
+  //将文件内容嵌入向量数据库
+
   @PostMapping("/embedding")
-  public Boolean embedding(@RequestParam MultipartFile file) {
+  public Boolean embedding(@RequestParam MultipartFile file) throws IOException {
     // 从IO流中读取文件
     TikaDocumentReader tikaDocumentReader = new TikaDocumentReader(new InputStreamResource(file.getInputStream()));
     // 将文本内容划分块

@@ -1,0 +1,45 @@
+server:
+  port: 9902
+
+spring:
+  application:
+    name: ai-private-area
+  data:
+    #redis
+    redis:
+      database: 0
+      timeout: 10s
+      password: 123456
+      repositories:
+        enabled: false
+      lettuce:
+        pool:
+          max-active: 200
+          max-wait: -1ms
+          max-idle: 10
+          min-idle: 0
+    #mysql
+    datasource:
+      url: jdbc:mysql://localhost:3306/knowledge_base
+      username: root
+      password: 123456
+      driver-class-name: com.mysql.cj.jdbc.Driver
+#    neo4j:
+#      authentication:
+#        username: neo4j
+#        password: 12345678
+#      uri: bolt://localhost:7687
+
+  #AI alibaba
+  ai:
+    dash-scope:
+      api-key: xxx
+      chat:
+        options:
+          model: qwen-max
+      embedding:
+        options:
+          model: text-embedding-v2
+      image:
+        options:
+          model: wanx-v1
