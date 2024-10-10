@@ -9,7 +9,7 @@ spring:
     redis:
       database: 0
       timeout: 10s
-      password: 123456
+#      password: 123456
       repositories:
         enabled: false
       lettuce:
@@ -22,7 +22,7 @@ spring:
     datasource:
       url: jdbc:mysql://localhost:3306/knowledge_base
       username: root
-      password: 123456
+      password: root
       driver-class-name: com.mysql.cj.jdbc.Driver
 #    neo4j:
 #      authentication:
@@ -33,13 +33,17 @@ spring:
   #AI alibaba
   ai:
     dash-scope:
-      api-key: xxx
+      api-key: sk-3c5f381089664b59a4ccec4944d01e67
       chat:
         options:
           model: qwen-max
       embedding:
         options:
-          model: text-embedding-v2
+          model: text-embedding-v3
       image:
         options:
           model: wanx-v1
+    #向量数据库
+    vectorstore:
+      redis:
+        initialize-schema: true
