@@ -100,7 +100,7 @@ public class MessageController {
       ---------------------
       {question_answer_context}
       ---------------------
-      给定的上下文和提供的历史信息，而不是事先的知识，回复用户的意见。如果答案不在上下文中，告诉用户你不能回答这个问题。
+      给定的上下文和提供的历史信息，而不是事先的知识，回复用户的意见。如果答案不在上下文中，告诉用户你不能回答这个问题。且不需要额外补充信息，全部依据给定的上下文和提供的历史信息
       """;
     QuestionAnswerAdvisor questionAnswerAdvisor = new QuestionAnswerAdvisor(vectorStore, SearchRequest.defaults(), promptWithContext);
     Flux<ServerSentEvent<String>> response = ChatClient
