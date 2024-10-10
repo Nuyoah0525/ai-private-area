@@ -34,7 +34,7 @@ public class DocumentAnalyzerFunction implements Function<DocumentAnalyzerFuncti
   @Data
   @ToString
   public static class Result {
-    private final String result;
+    private String result;
   }
   
 

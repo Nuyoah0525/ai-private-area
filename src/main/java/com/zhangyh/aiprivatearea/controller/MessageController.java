@@ -111,19 +111,17 @@ public class MessageController {
       .advisors(questionAnswerAdvisor)
       .stream()
       .content()
-      .map(chatResponse -> ServerSentEvent.builder(chatResponse)
-        .event("message")
-        .build());
+      .map(chatResponse -> ServerSentEvent.builder(chatResponse).event("message").build());
     return response;
   }
   
   //从本地数据库中查找历史消息作文上下文来回答
   @GetMapping(value = "/chat/stream/history", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-  public Flux<ServerSentEvent<String>> chatStreamWithHistory(@RequestParam String prompt, @RequestParam String messageId) {
+  public Flux<ServerSentEvent<String>> chatStreamWithHistory(@RequestParam String prompt, @RequestParam String sessionId) {
     //数据库存储的会话和消息 暂时使用内存存储
     ChatMemory chatMemoryDB = new InMemoryChatMemory();
     //根据会话id、数据库查找最近10条消息
-    MessageChatMemoryAdvisor messageChatMemoryAdvisor = new MessageChatMemoryAdvisor(chatMemoryDB, messageId, 10);
+    MessageChatMemoryAdvisor messageChatMemoryAdvisor = new MessageChatMemoryAdvisor(chatMemoryDB, sessionId, 10);
     Flux<ServerSentEvent<String>> response = ChatClient.create(chatModel)
       .prompt()
       .user(prompt)
@@ -134,6 +132,8 @@ public class MessageController {
       .map(chatResponse -> ServerSentEvent.builder(chatResponse)
         .event("message")
         .build());
+    
+    
     return response;
   }
   
